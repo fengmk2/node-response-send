@@ -31,6 +31,31 @@ http.ServerResponse.prototype.json = send.json({
 });
 ```
 
+For node < 0.8, `must` set `res.req` first.
+
+* Normal `http` module:
+
+```js
+var http = require('http');
+http.createServer(function (req, res) {
+  res.req = req;
+  // do something...
+  res.send('done');
+}).listen(8080);
+``` 
+
+* Using with `connect`:
+
+```js
+var connect = require('connect');
+connect(function (req, res) {
+  res.req = req;
+}, 
+  connect.static(),
+  // ... more middlewares
+).listen(8080);
+``` 
+
 ## API
 
 ```js
